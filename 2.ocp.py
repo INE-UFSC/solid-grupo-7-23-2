@@ -66,14 +66,32 @@ usando essa classe abaixo. Quando você decide dar 40% de desconto a clientes VI
 você decide mudar a classe da seguinte forma:
 """
 
-class Discount:
-    def __init__(self, customer, price):
-        self.customer = customer
+class Discount(ABC):
+    def __init__(self, price):
         self.price = price
 
+    # def give_discount(self):
+    #         if self.customer == 'fav':
+    #             return self.price * 0.2
+    #         if self.customer == 'vip':
+    #             return self.price * 0.4
+
+    @abstractmethod
     def give_discount(self):
-            if self.customer == 'fav':
-                return self.price * 0.2
-            if self.customer == 'vip':
-                return self.price * 0.4
+        pass
+
+class FavDiscount(Discount):
+    def __init__(self, price):
+        Discount.__init__(self, price)
+    
+    def give_discount(self):
+        return self.price * 0.2
+
+
+class VipDiscount(Discount):
+    def __init__(self, price):
+        Discount.__init__(self, price)
+
+    def give_discount(self):
+        return self.price * 0.4
 
